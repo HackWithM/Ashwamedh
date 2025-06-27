@@ -1,0 +1,21 @@
+{% extends 'academy/base.html' %}
+{% block title %}Faculty Team | Ashwamedh Academy{% endblock %}
+{% block content %}
+<h2>Our Faculty Team</h2>
+<div class="row">
+    {% for faculty in faculty_list %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img src="{{ faculty.photo.url }}" class="card-img-top" alt="{{ faculty.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ faculty.name }}</h5>
+                <p class="card-text">{{ faculty.designation }}</p>
+                <p class="card-text">{{ faculty.bio|truncatewords:20 }}</p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12"><p>No faculty members found.</p></div>
+    {% endfor %}
+</div>
+{% endblock %} 

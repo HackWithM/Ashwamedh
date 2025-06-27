@@ -1,0 +1,11 @@
+{% extends 'academy/base.html' %}
+{% block title %}Login | Ashwamedh Academy{% endblock %}
+{% block content %}
+<h2>Login</h2>
+<form method="post" action="/login/">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Login</button>
+    <a href="/password-reset/" class="btn btn-link">Forgot password?</a>
+</form>
+{% endblock %} 

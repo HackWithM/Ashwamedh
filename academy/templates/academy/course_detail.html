@@ -1,0 +1,51 @@
+{% extends 'academy/base.html' %}
+{% block title %}{{ course.title }} | Ashwamedh Academy{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h2>{{ course.title }}</h2>
+        <span class="badge bg-info">{{ course.exam_type }}</span>
+        <img src="{{ course.thumbnail.url }}" class="img-fluid my-3" alt="{{ course.title }}">
+        <h4>About this course</h4>
+        <p>{{ course.short_description }}</p>
+        <h4>Detailed Syllabus</h4>
+        <div class="border p-3 bg-light rounded">
+            {{ course.detailed_syllabus|safe }}
+        </div>
+        <h4 class="mt-4">Faculty</h4>
+        <ul>
+            {% for faculty in course.faculty_set.all %}
+                <li>{{ faculty.name }} - {{ faculty.designation }}</li>
+            {% empty %}
+                <li>No faculty assigned.</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Enroll Now</h5>
+                <p class="card-text fw-bold">Price: ₹{{ course.price }}</p>
+                {% if user.is_authenticated %}
+                    <form method="post" action="/courses/{{ course.id }}/enroll/">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success w-100">Enroll</button>
+                    </form>
+                {% else %}
+                    <a href="/login/" class="btn btn-primary w-100">Login to Enroll</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">Recommended Resources</div>
+            <ul class="list-group list-group-flush">
+                {% for resource in recommended_resources %}
+                    <li class="list-group-item"><a href="/resources/{{ resource.id }}/">{{ resource.title }}</a></li>
+                {% empty %}
+                    <li class="list-group-item">No resources yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %} 
