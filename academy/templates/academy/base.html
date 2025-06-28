@@ -14,28 +14,53 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="{% url 'home' %}">Ashwamedh Academy</a>
+    <a class="navbar-brand fw-bold" href="{% url 'home' %}"><img src="{% static 'academy/images/logo.png' %}" alt="Logo"   class="d-inline-block align-text-top" style="height: 20px;
+  width: 120px;"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
+     <ul class="navbar-nav ms-auto" style="font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 500; ">
+
         <li class="nav-item"><a class="nav-link" href="{% url 'courses' %}">Courses</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'resources' %}">Resources</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'faculty' %}">Faculty</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+        <div class="position-relative" style="width: 200px;">
+  <i class="bi bi-search" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); color: #888;"></i>
+  <input type="text"
+         class="form-control"
+         placeholder="Search"
+         style="padding-left: 32px; font-size: 14px; border-radius: 8px; border: 1px solid #ccc;">
+</div>
         {% if user.is_authenticated %}
           <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
         {% else %}
           <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
-          <li class="nav-item"><a class="nav-link btn btn-primary text-white ms-2" href="{% url 'signup' %}">Sign Up</a></li>
+          <li class="nav-item">
+<!--             <a class="nav-link btn btn-primary text-white ms-2" href="{% url 'signup' %}">Sign Up</a>
+ -->        
+<a class="nav-link btn text-white ms-2"
+   style="background-color: #fe7b1e; border: none; border-radius: 6px; padding: 6px 16px; font-weight: 600; font-size: 14px; width: 150px;
+  display: flex;
+  justify-content: center;
+  height: 33px;"
+   href="{% url 'signup' %}">
+   Sign Up
+</a>
+
+
+
+
+  </li>
         {% endif %}
       </ul>
     </div>
   </div>
 </nav>
+{% block fullwidth_content %}{% endblock %}
 <div class="container mt-4">
     {% block content %}{% endblock %}
 </div>

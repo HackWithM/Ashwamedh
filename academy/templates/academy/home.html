@@ -1,24 +1,139 @@
 {% extends 'academy/base.html' %}
 {% block title %}Home | Ashwamedh Academy{% endblock %}
-{% block content %}
-<div class="jumbotron text-center py-5 bg-light rounded">
+{% block fullwidth_content %}
+
+<!-- <div class="jumbotron text-center py-5 bg-light rounded">
     <h1 class="display-4">Welcome to Ashwamedh Academy</h1>
     <p class="lead">Empowering IAS, IPS, UPSC, and MPSC aspirants to achieve their dreams.</p>
     <a href="/courses/" class="btn btn-primary btn-lg m-2">Join Live Batch</a>
     <a href="/resources/" class="btn btn-outline-success btn-lg m-2">Download Free Notes</a>
+</div> -->
+<!-- <div id="carouselExampleCaptions" class="carousel slide w-100" data-bs-ride="carousel"> -->
+
+
+            <!-- banner -->
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner" style="height: 300px;">
+    <div class="carousel-item active" >
+      <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>First slide label</h5>
+        <p>Some representative placeholder content for the first slide.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&auto=format&fit=crop&w=2072&q=80" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Second slide label</h5>
+        <p>Some representative placeholder content for the second slide.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Third slide label</h5>
+        <p>Some representative placeholder content for the third slide.</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
-<div class="row mt-5">
-    <div class="col-md-4">
-        <h3>Expert Faculty</h3>
-        <p>Learn from experienced mentors and subject experts.</p>
-    </div>
-    <div class="col-md-4">
-        <h3>Comprehensive Courses</h3>
-        <p>Structured courses for all major competitive exams.</p>
-    </div>
-    <div class="col-md-4">
-        <h3>Resource Library</h3>
-        <p>Access books, notes, question papers, and more.</p>
-    </div>
+<!-- main section -->
+<main class="w-100" style="background-color:#fff;">
+  
+<!-- get started section -->
+<div class="w-100 text-center py-4" style="background-color: #fff;">
+  <h2 class="fw-semibold" style="font-size: 2rem; color: #333;">
+    One Destination for <span style="color: #fd7e14;">Complete Exam Preparation</span>
+  </h2>
+  <p class="mt-2" style="font-size: 1rem; color: #555;">
+    Dream <span style="color: #fd7e14;">▸</span> Work <span style="color: #fd7e14;">▸</span> Success 
+  </p>
+
+  <div class="d-flex justify-content-center align-items-center flex-wrap gap-3 mt-3">
+    <a href="/get-started" class="btn btn-lg px-4" 
+       style="background-color: #fd7e14; color: white; border-radius: 8px;">
+      Get Started For Free
+    </a>
+    <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" height="45"></a>
+  </div>
 </div>
+
+
+<!-- registerd user section -->
+
+<!-- Google Fonts for smooth font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+<div class="d-flex justify-content-center py-4" style="background-color: #fff; font-family: 'Inter', sans-serif;">
+  <div class="d-flex flex-wrap justify-content-center gap-3 px-3 py-3  rounded-4" style="
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);">
+
+    <!-- Card 1 -->
+    <div class="d-flex align-items-center gap-3 px-4 py-3 rounded-4" style="background: #e6fff1;">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
+<span class="material-symbols-rounded" style="color:#4caf50; font-size:32px;">
+  verified_user
+</span>
+
+      <div>
+        <div style="font-size: 0.95rem; color: #000;">Registered Students</div>
+        <div style="font-weight: 700; font-size: 1.1rem;">7.2+ Crore</div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="d-flex align-items-center gap-3 px-4 py-3 rounded-4" style="background: #fff5d9;">
+      <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
+<span class="material-symbols-rounded" style="color:#ffd700; font-size:32px;">
+  emoji_events
+</span>
+
+      <div>
+        <div style="font-size: 0.95rem;">Student Selections</div>
+        <div style="font-weight: 700; font-size: 1.1rem;">4+ Lacs</div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="d-flex align-items-center gap-3 px-4 py-3 rounded-4" style="background: #f4f0ff;">
+<span class="material-symbols-rounded" style="color:#ff9800; font-size:32px;">
+  assignment
+</span>
+
+      <div>
+        <div style="font-size: 0.95rem;">Tests Attempted</div>
+        <div style="font-weight: 700; font-size: 1.1rem;">242+ Crore</div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="d-flex align-items-center gap-3 px-4 py-3 rounded-4" style="background: #ffece6;">
+     <span class="material-symbols-rounded" style="color:#2196f3; font-size:32px;">
+  school
+</span>
+
+      <div>
+        <div style="font-size: 0.95rem;">Classes Attended</div>
+        <div style="font-weight: 700; font-size: 1.1rem;">5.5+ Crore</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</main>
 {% endblock %} 
