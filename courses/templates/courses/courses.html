@@ -1,0 +1,27 @@
+{% extends 'academy/base.html' %}
+{% load static %}
+{% block title %}Courses | Ashwamedh Academy{% endblock %}
+{% block content %}
+<h2 class="section-title text-center">Our Professional Courses</h2>
+<div class="row">
+  {% for course in courses %}
+  <div class="col-md-4 mb-4">
+    <div class="card h-100 shadow-sm">
+      {% if course.image %}
+      <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.title }}">
+      {% endif %}
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">{{ course.title }}</h5>
+        <p class="card-text">{{ course.description|truncatewords:20 }}</p>
+        <div class="mt-auto">
+          <span class="fw-bold text-primary">₹{{ course.price }}</span>
+          <a href="{% url 'course_detail' course.id %}" class="btn btn-outline-primary btn-sm float-end">View Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <div class="col-12 text-center">No courses available.</div>
+  {% endfor %}
+</div>
+{% endblock %} 

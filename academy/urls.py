@@ -4,8 +4,8 @@ from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('courses/', views.courses, name='courses'),
-    path('courses/<int:course_id>/', views.course_detail, name='course_detail'),
+    # path('courses/', views.courses, name='courses'),  # Removed: handled by courses app now
+    # path('courses/<int:course_id>/', views.course_detail, name='course_detail'),  # Removed: handled by courses app now
     path('resources/', views.resources, name='resources'),
     path('resources/<int:resource_id>/modal/', views.resource_modal, name='resource_modal'),
     path('dashboard/', views.dashboard, name='dashboard'),
