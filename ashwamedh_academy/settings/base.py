@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'axes',
     # Local apps
     'academy',
-    'academy_exams',
+    # 'academy_exams',  # Removed because the app no longer exists
 ]
 
 MIDDLEWARE = [

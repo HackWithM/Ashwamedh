@@ -137,38 +137,3 @@
 
 </main>
 {% endblock %}
-
-{% block content %}
-  {# Exams Section #}
-  <section class="py-5 bg-light">
-    <div class="container">
-      <h2 class="section-title text-center">All Exams</h2>
-      <div class="row">
-        {% for exam in exams %}
-        <div class="col-md-4 mb-4">
-          <div class="card h-100 shadow-sm">
-            {% if exam.logo %}
-            <img src="{{ exam.logo.url }}" class="card-img-top" alt="{{ exam.name }}">
-            {% endif %}
-            <div class="card-body">
-              <h5 class="card-title">{{ exam.name }}</h5>
-              <p class="card-text">{{ exam.description|truncatewords:20 }}</p>
-              {% if exam.start_date %}
-              <span class="badge bg-success">Starts: {{ exam.start_date }}</span>
-              {% endif %}
-              {% if exam.end_date %}
-              <span class="badge bg-danger">Ends: {{ exam.end_date }}</span>
-              {% endif %}
-            </div>
-          </div>
-        </div>
-        {% empty %}
-        <div class="col-12 text-center">No exams available.</div>
-        {% endfor %}
-      </div>
-      <div class="text-center mt-3">
-        <a href="{% url 'exams_list' %}" class="btn btn-primary">View All Exams</a>
-      </div>
-    </div>
-  </section>
-{% endblock %} 

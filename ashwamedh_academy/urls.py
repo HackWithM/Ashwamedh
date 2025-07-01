@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('academy.urls')),
-    path('', include('academy_exams.urls')),
+    # path('', include('academy_exams.urls')),  # Removed because the app no longer exists
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
