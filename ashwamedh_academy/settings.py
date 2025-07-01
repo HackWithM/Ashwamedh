@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'axes',
     # Local apps
     'academy',
-    'exams',
+    'academy_exams',
     
     
 ]

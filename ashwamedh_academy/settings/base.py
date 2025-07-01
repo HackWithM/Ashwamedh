@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'axes',
     # Local apps
     'academy',
+    'academy_exams',
 ]
 
 MIDDLEWARE = [

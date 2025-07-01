@@ -3,10 +3,12 @@ from .models import Course, Resource, Faculty, ResourceCategory
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
+from academy_exams.models import Exam
 
 # Home page
 def home(request):
-    return render(request, 'academy/home.html')
+    exams = Exam.objects.filter(is_active=True)
+    return render(request, 'academy/home.html', {'exams': exams})
 
 # Courses listing
 def courses(request):
