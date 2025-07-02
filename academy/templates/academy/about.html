@@ -1,6 +1,110 @@
 {% extends 'academy/base.html' %}
 {% block title %}About Us | Ashwamedh Academy{% endblock %}
+{% load static %}
 {% block content %}
-<h2>About Ashwamedh Academy</h2>
-<p>Ashwamedh Academy is dedicated to empowering aspirants for IAS, IPS, UPSC, and MPSC exams with quality coaching, expert faculty, and comprehensive resources. Our mission is to help you achieve your dreams through structured learning and mentorship.</p>
-{% endblock %} 
+<link rel="stylesheet" href="{% static 'academy/css/about.css' %}">
+
+<div class="about-hero-section d-flex flex-column flex-lg-row align-items-center justify-content-between py-5 px-3 px-lg-5">
+  <!-- Left Content Column -->
+  <div class="about-hero-left flex-grow-1 pe-lg-5 mb-5 mb-lg-0">
+    <div class="mb-4">
+      <span class="about-edu-label">Ashwamedh</span>
+    </div>
+    
+    <h1 class="about-hero-title mb-3">Ignite Your Learning Adventure:</h1>
+    <h2 class="about-hero-subtitle mb-4">Start Today, <span class="about-orange">Enrich Tomorrow's Dreams</span></h2>
+    
+    <p class="about-hero-desc mb-4">
+        We, Ashwamedh IAS Academy situated at Magarpatta City-Hadapsar, Pune, Maharashtra, are one
+         of the best tutorial centers offering coaching services for competitive exams. Our team of
+          excellent and experienced tutors strive to provide quality education with the help of brill
+          iant class notes and different teaching styles. We guide our students at every step of their 
+          journey and help them to clear all the queries and doubts. We are devoted and committed to the 
+          excellence of education and knowledge.    </p>
+    
+    <div class="d-flex gap-3 mb-5">
+      <a href="#" class="btn about-btn-orange">
+        <i class="bi bi-rocket me-2"></i> Get Started
+      </a>
+      <a href="#" class="btn about-btn-outline">
+         Enquiry Now
+      </a>
+    </div>
+    
+   <!--  <div class="about-hero-stats d-flex flex-wrap gap-4">
+      <div class="about-stat-block">
+        <div class="about-stat-main">150+</div>
+        <div class="about-stat-label">Professional Mentors</div>
+      </div>
+      <div class="about-stat-block">
+        <div class="about-stat-main">100,000</div>
+        <div class="about-stat-label">Active Users</div>
+      </div>
+      <div class="about-stat-block">
+        <div class="about-stat-main">999K</div>
+        <div class="about-stat-label">Downloads Materials Course</div>
+      </div>
+    </div> -->
+  </div>
+
+  <!-- Right Content Column - Mentors Section -->
+  <div class="about-hero-right d-flex flex-column align-items-center position-relative">
+    
+    
+    <!-- Mentors Container -->
+    <div class="about-mentors-container">
+      <!-- Julia - Robotic Mentor -->
+      <!-- <div class="about-mentor-card">
+        <div class="about-mentor-img-container">
+          <img src="{% static 'academy/images/varun.jpg' %}" alt="Julia - Robotic Mentor" class="about-mentor-img">
+        </div>
+        <div class="about-mentor-info">
+          <div class="about-mentor-name">Julia</div>
+          <div class="about-mentor-title">Robotic Mentor</div>
+        </div>
+      </div> -->
+      
+      <!-- Lenka - Scientific Mentor -->
+      <div class="about-mentor-card">
+        <div class="about-mentor-img-container">
+          <img src="{% static 'academy/images/ash.png' %}" alt="Lenka - Scientific Mentor" class="about-mentor-img">
+        </div>
+        <div class="about-mentor-info">
+          <div class="about-mentor-name">DR.Ashwini Kale</div>
+          <div class="about-mentor-title">Founder</div>
+        </div>
+      </div>
+    </div>
+    
+   
+  </div>
+</div>
+
+<!-- Optional Additional Section -->
+<div class="about-features-section py-5 px-3 px-lg-5 mt-5">
+  <h3 class="text-center mb-5">Why Choose Our Academy?</h3>
+  <div class="row">
+    <div class="col-md-4 mb-4">
+      <div class="about-feature-card">
+        <i class="bi bi-people-fill about-feature-icon"></i>
+        <h4>Expert Mentors</h4>
+        <p>Learn from industry professionals with real-world experience</p>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="about-feature-card">
+        <i class="bi bi-laptop about-feature-icon"></i>
+        <h4>Hands-on Learning</h4>
+        <p>Practical projects and interactive workshops</p>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="about-feature-card">
+        <i class="bi bi-award about-feature-icon"></i>
+        <h4>Certification</h4>
+        <p>Recognized certificates upon completion</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

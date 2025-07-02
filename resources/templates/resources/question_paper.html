@@ -2,19 +2,34 @@
 {% block title %}Question Papers | Resources{% endblock %}
 {% block content %}
 <h2 class="section-title text-center">Question Papers</h2>
-<div class="row">
-  {% for paper in question_papers %}
-  <div class="col-md-6 mb-4">
-    <div class="card h-100">
-      <div class="card-body">
-        <h5 class="card-title">{{ paper.title }}</h5>
-        <p class="card-text">{{ paper.description }}</p>
+<form method="get" class="mb-4 d-flex justify-content-center">
+  <input type="text" name="title" class="form-control w-auto me-2" placeholder="Filter by title" value="{{ request.GET.title|default:'' }}">
+  <button type="submit" class="btn btn-orange">Filter</button>
+</form>
+<table class="table table-bordered table-striped align-middle">
+  <thead class="table-light">
+    <tr>
+      <th>Sr. No.</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Download</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for paper in question_papers %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>{{ paper.title }}</td>
+      <td>{{ paper.description }}</td>
+      <td>
         <a href="{{ paper.file.url }}" class="btn btn-primary" download>Download</a>
-      </div>
-    </div>
-  </div>
-  {% empty %}
-  <div class="col-12 text-center">No question papers available.</div>
-  {% endfor %}
-</div>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="4" class="text-center">No question papers available.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endblock %} 

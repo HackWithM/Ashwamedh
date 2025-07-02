@@ -8,8 +8,11 @@ def book_list(request):
     return render(request, 'resources/book.html', {'books': books})
 
 def question_paper_list(request):
-    question_papers = QuestionPaper.objects.all().order_by('-created_at')
-    return render(request, 'resources/question_paper.html', {'question_papers': question_papers})
+    qs = QuestionPaper.objects.all()
+    title = request.GET.get('title')
+    if title:
+        qs = qs.filter(title__icontains=title)
+    return render(request, 'resources/question_paper.html', {'question_papers': qs})
 
 def notes_list(request):
     notes = Note.objects.all().order_by('-created_at')
