@@ -4,6 +4,11 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
 from django.http import Http404
+import random
+import requests
+from django.conf import settings
+from django.core.mail import send_mail
+from .forms import ContactForm
 
 # Home page
 def home(request):
@@ -101,3 +106,79 @@ def exam_detail(request, exam_slug):
         return render(request, template_name)
     except Exception:
         raise Http404("Exam page not found.")
+
+def send_fast2sms_otp(mobile, otp):
+    url = "https://www.fast2sms.com/dev/bulkV2"
+    payload = {
+        "route": "q",
+        "message": f"Your OTP for Ashwamedh Academy is {otp}",
+        "language": "english",
+        "flash": 0,
+        "numbers": mobile
+    }
+    headers = {
+        'authorization': settings.FAST2SMS_API_KEY,
+        'Content-Type': "application/x-www-form-urlencoded"
+    }
+    requests.post(url, data=payload, headers=headers)
+
+def send_fast2sms_admin(mobile, msg):
+    url = "https://www.fast2sms.com/dev/bulkV2"
+    payload = {
+        "route": "q",
+        "message": msg,
+        "language": "english",
+        "flash": 0,
+        "numbers": mobile
+    }
+    headers = {
+        'authorization': settings.FAST2SMS_API_KEY,
+        'Content-Type': "application/x-www-form-urlencoded"
+    }
+    requests.post(url, data=payload, headers=headers)
+
+def contact_view(request):
+    if request.method == 'POST':
+        if 'otp' in request.POST:
+            # OTP verification step
+            if request.POST['otp'] == request.session.get('otp'):
+                # Send email to admin
+                send_mail(
+                    'New Enquiry from ' + request.session['username'],
+                    f"Name: {request.session['username']}\nEmail: {request.session['email']}\nMobile: {request.session['mobile_no']}\nMessage: {request.session['message']}",
+                    settings.EMAIL_HOST_USER,
+                    [settings.ADMIN_EMAIL]
+                )
+                # Send SMS to admin
+                send_fast2sms_admin(
+                    settings.ADMIN_MOBILE,
+                    f"New enquiry from {request.session['username']} ({request.session['mobile_no']}): {request.session['message']}"
+                )
+                # Clear session
+                for key in ['otp', 'username', 'email', 'mobile_no', 'message']:
+                    if key in request.session:
+                        del request.session[key]
+                return render(request, 'academy/contact.html', {'success': True})
+            else:
+                return render(request, 'academy/contact.html', {'otp_error': True, 'otp_sent': True})
+        else:
+            # First form submission
+            form = ContactForm(request.POST)
+            if form.is_valid():
+                otp = str(random.randint(1000, 9999))
+                request.session['otp'] = otp
+                request.session['username'] = form.cleaned_data['username']
+                request.session['email'] = form.cleaned_data['email']
+                request.session['mobile_no'] = form.cleaned_data['mobile_no']
+                request.session['message'] = form.cleaned_data['message']
+                # Send OTP to user's email instead of SMS
+                send_mail(
+                    'Your OTP for Ashwamedh Academy',
+                    f'Your OTP is: {otp}',
+                    settings.EMAIL_HOST_USER,
+                    [form.cleaned_data['email']]
+                )
+                return render(request, 'academy/contact.html', {'otp_sent': True, 'mobile_no': form.cleaned_data['mobile_no']})
+    else:
+        form = ContactForm()
+    return render(request, 'academy/contact.html', {'form': form})

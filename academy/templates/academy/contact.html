@@ -2,22 +2,40 @@
 {% block title %}Contact Us | Ashwamedh Academy{% endblock %}
 {% block content %}
 <h2>Contact Us</h2>
-<form method="post" action="/contact/">
+{% if not otp_sent %}
+<form method="post" action="">
     {% csrf_token %}
     <div class="mb-3">
-        <label for="name" class="form-label">Your Name</label>
-        <input type="text" class="form-control" id="name" name="name" required>
+        <label for="id_username" class="form-label">Your Name</label>
+        <input type="text" class="form-control" id="id_username" name="username" required value="{{ form.username.value|default:'' }}">
     </div>
     <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="email" name="email" required>
+        <label for="id_email" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="id_email" name="email" required value="{{ form.email.value|default:'' }}">
     </div>
     <div class="mb-3">
-        <label for="message" class="form-label">Message</label>
-        <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+        <label for="id_mobile_no" class="form-label">Mobile No.</label>
+        <input type="text" class="form-control" id="id_mobile_no" name="mobile_no" required value="{{ form.mobile_no.value|default:'' }}">
+    </div>
+    <div class="mb-3">
+        <label for="id_message" class="form-label">Message</label>
+        <textarea class="form-control" id="id_message" name="message" rows="4" required>{{ form.message.value|default:'' }}</textarea>
     </div>
     <button type="submit" class="btn btn-primary">Send</button>
 </form>
+{% elif otp_sent %}
+<form method="post" action="">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="otp" class="form-label">Enter OTP sent to {{ mobile_no }}</label>
+        <input type="text" class="form-control" id="otp" name="otp" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Verify OTP</button>
+</form>
+{% endif %}
+{% if otp_error %}
+<div class="alert alert-danger mt-3">Invalid OTP. Please try again.</div>
+{% endif %}
 {% if success %}
 <div class="alert alert-success mt-3">Thank you for contacting us! We will get back to you soon.</div>
 {% endif %}
