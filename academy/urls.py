@@ -10,7 +10,6 @@ urlpatterns = [
     path('resources/<int:resource_id>/modal/', views.resource_modal, name='resource_modal'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('about/', views.about, name='about'),
-    path('faculty/', views.faculty, name='faculty'),
     path('contact/', views.contact, name='contact'),
     path('login/', views.login_view, name='login'),
     path('signup/', views.signup_view, name='signup'),

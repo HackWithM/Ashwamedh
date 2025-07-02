@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('academy.urls')),
     path('', include('courses.urls')),
     path('', include('resources.urls')),
+    path('', include('faculty.urls')),
     # path('', include('academy_exams.urls')),  # Removed because the app no longer exists
 ]
 

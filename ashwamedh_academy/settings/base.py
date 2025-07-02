@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'academy',
     'courses',
     'resources',
+    'faculty',
     # 'academy_exams',  # Removed because the app no longer exists
 ]
 
