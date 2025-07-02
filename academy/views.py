@@ -3,6 +3,7 @@ from .models import Course, Resource, Faculty, ResourceCategory
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
+from django.http import Http404
 
 # Home page
 def home(request):
@@ -93,3 +94,10 @@ def password_reset_view(request):
 
 def password_reset_done_view(request):
     return render(request, 'academy/registration/password_reset_done.html')
+
+def exam_detail(request, exam_slug):
+    template_name = f'academy/{exam_slug}.html'
+    try:
+        return render(request, template_name)
+    except Exception:
+        raise Http404("Exam page not found.")
