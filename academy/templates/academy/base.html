@@ -85,7 +85,16 @@
      <ul class="navbar-nav ms-auto" style="font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 500; ">
 
         <li class="nav-item"><a class="nav-link" href="{% url 'courses_list' %}">Courses</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'resources' %}">Resources</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="resourcesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Resources
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="resourcesDropdown">
+            <li><a class="dropdown-item" href="{% url 'books_list' %}">BOOKS</a></li>
+            <li><a class="dropdown-item" href="{% url 'notes_list' %}">NOTES</a></li>
+            <li><a class="dropdown-item" href="{% url 'question_papers_list' %}">QUESTION PAPERS</a></li>
+          </ul>
+        </li>
         <li class="nav-item"><a class="nav-link" href="{% url 'faculty' %}">Faculty</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>

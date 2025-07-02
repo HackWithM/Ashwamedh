@@ -87,4 +87,10 @@ footer a:hover {
   .card-img-top {
     height: 120px;
   }
+}
+@media (min-width: 992px) {
+  .navbar .dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+  }
 } 

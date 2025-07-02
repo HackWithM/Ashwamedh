@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     # Local apps
     'academy',
     'courses',
+    'resources',
     # 'academy_exams',  # Removed because the app no longer exists
 ]
 

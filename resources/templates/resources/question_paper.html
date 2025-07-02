@@ -1,0 +1,20 @@
+{% extends 'academy/base.html' %}
+{% block title %}Question Papers | Resources{% endblock %}
+{% block content %}
+<h2 class="section-title text-center">Question Papers</h2>
+<div class="row">
+  {% for paper in question_papers %}
+  <div class="col-md-6 mb-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">{{ paper.title }}</h5>
+        <p class="card-text">{{ paper.description }}</p>
+        <a href="{{ paper.file.url }}" class="btn btn-primary" download>Download</a>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <div class="col-12 text-center">No question papers available.</div>
+  {% endfor %}
+</div>
+{% endblock %} 

@@ -1,0 +1,20 @@
+{% extends 'academy/base.html' %}
+{% block title %}Notes | Resources{% endblock %}
+{% block content %}
+<h2 class="section-title text-center">Notes</h2>
+<div class="row">
+  {% for note in notes %}
+  <div class="col-md-6 mb-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">{{ note.title }}</h5>
+        <p class="card-text">{{ note.description }}</p>
+        <a href="{{ note.file.url }}" class="btn btn-primary" download>Download</a>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <div class="col-12 text-center">No notes available.</div>
+  {% endfor %}
+</div>
+{% endblock %} 
