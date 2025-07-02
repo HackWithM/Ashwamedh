@@ -1,19 +1,25 @@
 {% extends 'academy/base.html' %}
+{% load static %}
 {% block title %}{{ course.title }} | Course Details{% endblock %}
 {% block content %}
-<div class="container py-4">
-  <div class="row">
-    <div class="col-md-6">
+<link rel="stylesheet" href="{% static 'academy/css/course_details.css' %}">
+
+<!-- Main Content -->
+<section class="container py-5">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-md-5 mb-4 mb-md-0 text-center">
       {% if course.image %}
-      <img src="{{ course.image.url }}" class="img-fluid rounded mb-3" alt="{{ course.title }}">
+      <img src="{{ course.image.url }}" class="img-fluid rounded shadow-sm border-orange" alt="{{ course.title }}" style="max-width:320px;">
       {% endif %}
     </div>
-    <div class="col-md-6">
-      <h2>{{ course.title }}</h2>
-      <p class="lead">{{ course.description }}</p>
-      <div class="mb-3"><span class="fw-bold text-primary">₹{{ course.price }}</span></div>
-      <div>{{ course.details|linebreaks }}</div>
+    <div class="col-md-7">
+      <h1 class="display-5 fw-bold text-orange mb-3">{{ course.title }}</h1>
+      <p class="lead text-muted mb-4">{{ course.description }}</p>
+      <h4 class="mb-3 text-orange">What You'll Learn</h4>
+      <div class="details mb-4">{{ course.details|linebreaks }}</div>
+      <div class="price-tag mb-4">Price: <span class="text-orange">₹{{ course.price }}</span></div>
+      <a href="#" class="btn btn-orange btn-lg">Enroll Now</a>
     </div>
   </div>
-</div>
-{% endblock %} 
+</section>
+{% endblock %}

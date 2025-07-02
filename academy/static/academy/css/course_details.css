@@ -1,0 +1,150 @@
+/* .course-card.orange-theme {
+    width: 1000px;
+    background: #fffdf9;
+    border: 2px solid #ffa726;
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 16px rgba(255, 165, 0, 0.15);
+    padding: 2rem 2.5rem;
+    display: flex;
+    align-items: center;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  
+  .course-card.orange-theme:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(255, 152, 0, 0.25);
+  }
+  
+  .course-card.orange-theme .img-fluid {
+    max-width: 300px;
+    border-radius: 1rem;
+    border: 1px solid #ffd180;
+    box-shadow: 0 2px 12px rgba(255, 152, 0, 0.1);
+  }
+  
+  .course-card.orange-theme .card-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fb8c00;
+    margin-bottom: 0.8rem;
+  }
+  
+  .course-card.orange-theme .divider {
+    height: 3px;
+    width: 50px;
+    background: #ffa726;
+    border-radius: 2px;
+    margin: 1rem 0;
+  }
+  
+  .course-card.orange-theme .card-text {
+    font-size: 1.05rem;
+    color: #4e342e;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+  
+  .course-card.orange-theme .details {
+    background: #fff8e1;
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    font-size: 1rem;
+    color: #5d4037;
+    margin-bottom: 1.2rem;
+    line-height: 1.6;
+  }
+  
+  .course-card.orange-theme .price-tag {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #ff6f00;
+    margin-bottom: 1rem;
+  }
+  
+  .course-card.orange-theme .enroll-btn {
+    background: #fb8c00;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    padding: 0.6rem 1.8rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 2px 12px rgba(255, 152, 0, 0.2);
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .course-card.orange-theme .enroll-btn:hover {
+    background: #ef6c00;
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(255, 87, 34, 0.3);
+  }
+   */
+
+body {
+  background: linear-gradient(120deg, #f8fafc 0%, #fff7ed 100%);
+  min-height: 100vh;
+}
+
+section.container {
+  background: #fff;
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px rgba(80, 80, 80, 0.10);
+  padding: 3rem 2.5rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.text-orange {
+  color: #ff6600 !important;
+}
+
+.btn-orange {
+  background: linear-gradient(90deg, #ff6600, #ff914d);
+  color: #fff !important;
+  border: none;
+  border-radius: 2rem;
+  font-weight: 700;
+  padding: 0.6rem 2.2rem;
+  box-shadow: 0 2px 12px rgba(255, 102, 0, 0.18);
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.btn-orange:hover {
+  background: linear-gradient(90deg, #ff914d, #ff6600);
+  transform: scale(1.05);
+}
+
+.border-orange {
+  border: 3px solid #ff914d !important;
+}
+
+.details {
+  background: #fff8f1;
+  border-radius: 1rem;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 1px 8px #ffb74d22;
+  color: #4e342e;
+  font-size: 1.08rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.price-tag {
+  color: #fb8c00;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  text-shadow: 0 1px 4px #ffb74d44;
+}
+
+@media (max-width: 767px) {
+  section.container {
+    padding: 1.2rem 0.5rem;
+    border-radius: 1rem;
+  }
+  .details {
+    padding: 0.7rem 0.7rem;
+  }
+}
+  
