@@ -1,7 +1,10 @@
 {% extends 'academy/base.html' %}
+{% load static %}
 {% block title %}Home | Ashwamedh Academy{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'academy/css/home.css' %}">
+{% endblock %}
 {% block fullwidth_content %}
-
 <!-- <div class="jumbotron text-center py-5 bg-light rounded">
     <h1 class="display-4">Welcome to Ashwamedh Academy</h1>
     <p class="lead">Empowering IAS, IPS, UPSC, and MPSC aspirants to achieve their dreams.</p>
@@ -62,15 +65,20 @@
     Dream <span style="color: #fd7e14;">▸</span> Work <span style="color: #fd7e14;">▸</span> Success 
   </p>
 
-  <div class="d-flex justify-content-center align-items-center flex-wrap gap-3 mt-3">
+  <!-- <div class="d-flex justify-content-center align-items-center flex-wrap gap-3 mt-3">
     <a href="/get-started" class="btn btn-lg px-4" 
        style="background-color: #fd7e14; color: white; border-radius: 8px;">
       Get Started For Free
     </a>
     <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" height="45"></a>
-  </div>
+  </div> -->
 </div>
-
+<a href="https://wa.me/9021200359" class="whatsapp-float" target="_blank">
+  <div class="wave wave1"></div>
+  <div class="wave wave2"></div>
+  <div class="wave wave3"></div>
+  <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp">
+</a>
 
 <!-- registerd user section -->
 
@@ -216,7 +224,72 @@
     </a>
   </div>
 </div>
-
+<!-- Successful Students Section -->
+<section class="successful-students-section text-center my-5">
+  <h2 class="mb-4" style="font-weight:700;">Our Successful Students</h2>
+  <div class="students-grid">
+    <div class="student-card">
+      <img src="{% static 'academy/images/student1.jpg' %}" alt="Student 1" class="student-img">
+      <div class="student-name">name</div>
+      <div class="student-post">IAS Officer</div>
+    </div>
+    <div class="student-card">
+      <img src="{% static 'academy/images/student2.jpg' %}" alt="Student 2" class="student-img">
+      <div class="student-name">name</div>
+      <div class="student-post">IPS Officer</div>
+    </div>
+    <div class="student-card">
+      <img src="{% static 'academy/images/student3.jpg' %}" alt="Student 3" class="student-img">
+      <div class="student-name">name</div>
+      <div class="student-post">MPSC Topper</div>
+    </div>
+    <div class="student-card">
+      <img src="{% static 'academy/images/student4.jpg' %}" alt="Student 4" class="student-img">
+      <div class="student-name">name</div>
+      <div class="student-post">UPSC AIR 12</div>
+    </div>
+    <div class="student-card">
+      <img src="{% static 'academy/images/student5.jpg' %}" alt="Student 5" class="student-img">
+      <div class="student-name">name</div>
+      <div class="student-post">DySP</div>
+    </div>
+    <div class="student-card">
+      <img src="{% static 'academy/images/student6.jpg' %}" alt="Student 6" class="student-img">
+      <div class="student-name">name</div>
+      <div class="student-post">IRS Officer</div>
+    </div>
+    <div class="student-card">
+      <img src="{% static 'academy/images/student7.jpg' %}" alt="Student 7" class="student-img">
+      <div class="student-name">name</div>
+      <div class="student-post">MPSC Topper</div>
+    </div>
+    <div class="student-card">
+      <img src="{% static 'academy/images/student8.jpg' %}" alt="Student 8" class="student-img">
+      <div class="student-name">name</div>
+      <div class="student-post">IFS Officer</div>
+    </div>
+    <div class="student-card">
+      <img src="{% static 'academy/images/student9.jpg' %}" alt="Student 9" class="student-img">
+      <div class="student-name">name</div>
+      <div class="student-post">UPSC AIR 45</div>
+    </div>
+    <div class="student-card">
+      <img src="{% static 'academy/images/student10.jpg' %}" alt="Student 10" class="student-img">
+        <div class="student-name">name</div>
+      <div class="student-post">MPSC Topper</div>
+    </div>
+    <div class="student-card">
+      <img src="{% static 'academy/images/student11.jpg' %}" alt="Student 11" class="student-img">
+      <div class="student-name">name</div>
+      <div class="student-post">IAS Officer</div>
+    </div>
+    <div class="student-card">
+      <img src="{% static 'academy/images/student12.jpg' %}" alt="Student 12" class="student-img">
+      <div class="student-name">name</div>
+      <div class="student-post">IPS Officer</div>
+    </div>
+  </div>
+</section>
 
 <!-- sort banner section -->
 
@@ -286,5 +359,52 @@
     </div>
   </div>
 </section>
+
+<!-- Floating Contact/Enrolment Card -->
+<div id="floating-contact-card" class="floating-contact-card">
+  <div class="contact-card-left">
+    <!-- <img src="{% static 'academy/images/logo1.png' %}" alt="Logo" class="contact-card-logo"> -->
+     <i class="fa-solid fa-headset" style="font-size: 2rem; color: #ffffff;"></i>
+  </div>
+  <div class="contact-card-right">
+    <div class="contact-card-info">
+      <strong>Enrol Now</strong><br>
+      <span>Contact: 9021200359</span>
+    </div>
+    <button class="contact-card-minimize" onclick="minimizeContactCard(event)" title="Minimize">&minus;</button>
+  </div>
+</div>
+
+<!-- Contact Modal (hidden by default) -->
+<div class="modal fade" id="floatingContactModal" tabindex="-1" aria-labelledby="floatingContactModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="border-radius:1.5rem;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="floatingContactModalLabel">Contact / Enrolment</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {% include 'academy/popup_contact_form.html' %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function minimizeContactCard(event) {
+  event.stopPropagation();
+  document.getElementById('floating-contact-card').style.display = 'none';
+}
+// Show modal on card click (except minimize button)
+document.addEventListener('DOMContentLoaded', function() {
+  var card = document.getElementById('floating-contact-card');
+  card.addEventListener('click', function(e) {
+    if (!e.target.classList.contains('contact-card-minimize')) {
+      var modal = new bootstrap.Modal(document.getElementById('floatingContactModal'));
+      modal.show();
+    }
+  });
+});
+</script>
 
 {% endblock %}

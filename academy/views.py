@@ -9,6 +9,7 @@ import requests
 from django.conf import settings
 from django.core.mail import send_mail
 from .forms import ContactForm
+from django.http import JsonResponse
 
 # Home page
 def home(request):
@@ -182,3 +183,51 @@ def contact_view(request):
     else:
         form = ContactForm()
     return render(request, 'academy/contact.html', {'form': form})
+
+def popup_contact_view(request):
+    if request.method == 'POST':
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            if 'otp' in request.POST:
+                # OTP verification step
+                if request.POST['otp'] == request.session.get('popup_otp'):
+                    # Send email to admin
+                    send_mail(
+                        'New Enquiry from ' + request.session['popup_username'],
+                        f"Name: {request.session['popup_username']}\nEmail: {request.session['popup_email']}\nMobile: {request.session['popup_mobile_no']}\nMessage: {request.session['popup_message']}",
+                        settings.EMAIL_HOST_USER,
+                        [settings.ADMIN_EMAIL]
+                    )
+                    send_fast2sms_admin(
+                        settings.ADMIN_MOBILE,
+                        f"New enquiry from {request.session['popup_username']} ({request.session['popup_mobile_no']}): {request.session['popup_message']}"
+                    )
+                    # Clear session
+                    for key in ['popup_otp', 'popup_username', 'popup_email', 'popup_mobile_no', 'popup_message']:
+                        if key in request.session:
+                            del request.session[key]
+                    return JsonResponse({'success': True, 'message': 'Thank you! Your enquiry has been submitted.'})
+                else:
+                    return JsonResponse({'success': False, 'otp_error': True, 'message': 'Invalid OTP. Please try again.'})
+            else:
+                # First form submission
+                form = ContactForm(request.POST)
+                if form.is_valid():
+                    otp = str(random.randint(1000, 9999))
+                    request.session['popup_otp'] = otp
+                    request.session['popup_username'] = form.cleaned_data['username']
+                    request.session['popup_email'] = form.cleaned_data['email']
+                    request.session['popup_mobile_no'] = form.cleaned_data['mobile_no']
+                    request.session['popup_message'] = form.cleaned_data['message']
+                    send_mail(
+                        'Your OTP for Ashwamedh Academy',
+                        f'Your OTP is: {otp}',
+                        settings.EMAIL_HOST_USER,
+                        [form.cleaned_data['email']]
+                    )
+                    return JsonResponse({'otp_sent': True, 'mobile_no': form.cleaned_data['mobile_no']})
+                else:
+                    return JsonResponse({'success': False, 'errors': form.errors, 'message': 'Please correct the errors below.'})
+        else:
+            return JsonResponse({'success': False, 'message': 'Invalid request.'})
+    else:
+        return render(request, 'academy/popup_contact_form.html')

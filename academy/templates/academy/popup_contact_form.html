@@ -1,0 +1,244 @@
+<style>
+.popup-contact-form-outer {
+  background: linear-gradient(135deg, #fff7f0 0%, #fff 100%);
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px rgba(253, 126, 20, 0.10), 0 1.5px 8px rgba(0,0,0,0.04);
+  padding: 2.2rem 1.5rem 1.5rem 1.5rem;
+  max-width: 420px;
+  margin: 0 auto;
+  border: 1.5px solid #ffe0c2;
+  position: relative;
+}
+.popup-form-title {
+  color: #fd7e14;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  text-align: center;
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.popup-form-title .fa-paper-plane {
+  color: #fd7e14;
+  font-size: 1.3em;
+}
+.popup-form-label {
+  color: #fd7e14;
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+}
+.popup-form-input {
+  border-radius: 1.2rem !important;
+  padding: 0.7rem 1.1rem !important;
+  border: 1.5px solid #ffe0c2;
+  background: #fffdfa;
+  margin-bottom: 1.1rem;
+  font-size: 1.05rem;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.popup-form-input:focus {
+  border-color: #fd7e14;
+  box-shadow: 0 0 0 2px #fd7e1433;
+  background: #fff7f0;
+}
+.popup-form-btn {
+  background: linear-gradient(90deg, #fd7e14 60%, #ffb36b 100%);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 1.5rem;
+  padding: 0.7rem 2rem;
+  margin-top: 0.5rem;
+  width: 100%;
+  font-size: 1.08rem;
+  box-shadow: 0 2px 8px #fd7e1422;
+  transition: background 0.2s, box-shadow 0.2s;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.popup-form-btn:hover, .popup-form-btn:focus {
+  background: #ff943f;
+  box-shadow: 0 4px 16px #fd7e1433;
+}
+.popup-form-otp {
+  margin-top: 1.2rem;
+}
+.popup-form-success, .popup-form-error {
+  margin-top: 1.2rem;
+}
+.popup-spinner {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+  margin-left: 12px;
+}
+.popup-spinner:after {
+  content: " ";
+  display: block;
+  width: 28px;
+  height: 28px;
+  margin: 2px;
+  border-radius: 50%;
+  border: 4px solid #fd7e14;
+  border-color: #fd7e14 transparent #fd7e14 transparent;
+  animation: popup-dual-ring 1.2s linear infinite;
+}
+@keyframes popup-dual-ring {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
+@media (max-width: 500px) {
+  .popup-contact-form-outer {
+    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+    border-radius: 1.2rem;
+  }
+  .popup-form-title {
+    font-size: 1.1rem;
+  }
+}
+</style>
+<div class="popup-contact-form-outer">
+  <div class="popup-form-title"><i class="fa fa-paper-plane"></i> Contact / Enrolment</div>
+  <form id="popup-contact-form" method="post" action="{% url 'popup_contact' %}">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="popup_id_username" class="form-label popup-form-label">Your Name</label>
+      <input type="text" class="form-control popup-form-input" id="popup_id_username" name="username" required>
+    </div>
+    <div class="mb-3">
+      <label for="popup_id_email" class="form-label popup-form-label">Email address</label>
+      <input type="email" class="form-control popup-form-input" id="popup_id_email" name="email" required>
+    </div>
+    <div class="mb-3">
+      <label for="popup_id_mobile_no" class="form-label popup-form-label">Mobile No.</label>
+      <input type="text" class="form-control popup-form-input" id="popup_id_mobile_no" name="mobile_no" required>
+    </div>
+    <div class="mb-3">
+      <label for="popup_id_message" class="form-label popup-form-label">Message</label>
+      <textarea class="form-control popup-form-input" id="popup_id_message" name="message" rows="4" required></textarea>
+    </div>
+    <button type="submit" class="btn popup-form-btn" id="popup-contact-submit">
+      Send OTP
+      <!-- Spinner is shown/hidden by JS -->
+      <span class="popup-spinner d-none" id="popup-contact-spinner" style="z-index: 1100;"></span>
+    </button>
+  </form>
+  <form id="popup-otp-form" class="popup-form-otp d-none" method="post" action="{% url 'popup_contact' %}">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="popup_otp" class="form-label popup-form-label">Enter OTP sent to your email</label>
+      <input type="text" class="form-control popup-form-input" id="popup_otp" name="otp" required>
+    </div>
+    <button type="submit" class="btn popup-form-btn" id="popup-otp-submit">
+      Verify OTP
+      <!-- Spinner is shown/hidden by JS -->
+      <span class="popup-spinner d-none" id="popup-otp-spinner"></span>
+    </button>
+  </form>
+  <div id="popup-contact-success" class="popup-form-success d-none"></div>
+  <div id="popup-contact-error" class="popup-form-error d-none"></div>
+</div>
+<script>
+function showPopupFormError(msg) {
+  var err = document.getElementById('popup-contact-error');
+  err.textContent = msg;
+  err.classList.remove('d-none');
+}
+function hidePopupFormError() {
+  document.getElementById('popup-contact-error').classList.add('d-none');
+}
+function showPopupFormSuccess(msg) {
+  var succ = document.getElementById('popup-contact-success');
+  succ.textContent = msg;
+  succ.classList.remove('d-none');
+}
+function hidePopupFormSuccess() {
+  document.getElementById('popup-contact-success').classList.add('d-none');
+}
+// Handle first form (send OTP)
+document.getElementById('popup-contact-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  hidePopupFormError();
+  hidePopupFormSuccess();
+  var form = e.target;
+  var btn = document.getElementById('popup-contact-submit');
+  var spinner = document.getElementById('popup-contact-spinner');
+  btn.disabled = true;
+  spinner.classList.remove('d-none');
+  var data = new FormData(form);
+  fetch(form.action, {
+    method: 'POST',
+    headers: {'X-Requested-With': 'XMLHttpRequest'},
+    body: data
+  })
+  .then(r => r.json())
+  .then(resp => {
+    btn.disabled = false;
+    spinner.classList.add('d-none');
+    if (resp.otp_sent) {
+      form.classList.add('d-none');
+      document.getElementById('popup-otp-form').classList.remove('d-none');
+      showPopupFormSuccess('OTP sent to your email. Please enter it below.');
+    } else if (resp.errors) {
+      let msg = Object.values(resp.errors).map(arr => arr.join(' ')).join(' ');
+      showPopupFormError(msg || resp.message);
+    } else {
+      showPopupFormError(resp.message || 'Something went wrong.');
+    }
+  })
+  .catch(() => {
+    btn.disabled = false;
+    spinner.classList.add('d-none');
+    showPopupFormError('Network error. Please try again.');
+  });
+});
+// Handle OTP form
+var otpForm = document.getElementById('popup-otp-form');
+otpForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  hidePopupFormError();
+  hidePopupFormSuccess();
+  var btn = document.getElementById('popup-otp-submit');
+  var spinner = document.getElementById('popup-otp-spinner');
+  btn.disabled = true;
+  spinner.classList.remove('d-none');
+  var data = new FormData(otpForm);
+  fetch(otpForm.action, {
+    method: 'POST',
+    headers: {'X-Requested-With': 'XMLHttpRequest'},
+    body: data
+  })
+  .then(r => r.json())
+  .then(resp => {
+    btn.disabled = false;
+    spinner.classList.add('d-none');
+    if (resp.success) {
+      otpForm.classList.add('d-none');
+      showPopupFormSuccess(resp.message || 'Thank you! Your enquiry has been submitted.');
+      setTimeout(function() {
+        hidePopupFormSuccess();
+        var modal = bootstrap.Modal.getInstance(document.getElementById('floatingContactModal'));
+        if (modal) modal.hide();
+        document.getElementById('popup-contact-form').reset();
+        document.getElementById('popup-contact-form').classList.remove('d-none');
+        otpForm.reset();
+      }, 2500);
+    } else if (resp.otp_error) {
+      showPopupFormError(resp.message || 'Invalid OTP. Please try again.');
+    } else {
+      showPopupFormError(resp.message || 'Something went wrong.');
+    }
+  })
+  .catch(() => {
+    btn.disabled = false;
+    spinner.classList.add('d-none');
+    showPopupFormError('Network error. Please try again.');
+  });
+});
+</script> 

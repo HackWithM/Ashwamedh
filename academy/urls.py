@@ -19,4 +19,5 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='home'), name='logout'),
     path('exams/<str:exam_slug>/', views.exam_detail, name='exam_detail'),
     path('academy/<str:exam>.html', lambda request, exam: redirect(f'/exams/{exam}/', permanent=True)),
+    path('popup-contact/', views.popup_contact_view, name='popup_contact'),
 ] 
