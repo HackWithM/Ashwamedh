@@ -10,6 +10,13 @@ from django.conf import settings
 from django.core.mail import send_mail
 from .forms import ContactForm
 from django.http import JsonResponse
+from django.contrib.auth import login
+from django.contrib.auth.models import User
+from .forms import StudentRegistrationForm
+from .models import StudentProfile
+from django.views.decorators.csrf import csrf_exempt
+
+import json
 
 # Home page
 def home(request):
@@ -231,3 +238,66 @@ def popup_contact_view(request):
             return JsonResponse({'success': False, 'message': 'Invalid request.'})
     else:
         return render(request, 'academy/popup_contact_form.html')
+
+def send_registration_otp(email, otp):
+    send_mail(
+        'Your Registration OTP for Ashwamedh Academy',
+        f'Your OTP is: {otp}',
+        settings.EMAIL_HOST_USER,
+        [email]
+    )
+
+@csrf_exempt
+def ajax_register_student(request):
+    if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        data = request.POST
+        if 'otp' in data:
+            # OTP verification step
+            if data['otp'] == request.session.get('reg_otp'):
+                # Create user and profile
+                user = User.objects.create_user(
+                    username=request.session['reg_email'],
+                    email=request.session['reg_email'],
+                    password=request.session['reg_password'],
+                    first_name=request.session['reg_first_name'],
+                    last_name=request.session['reg_last_name']
+                )
+                profile = user.studentprofile
+                profile.address = request.session['reg_address']
+                profile.mobile = request.session['reg_mobile']
+                # Handle profile_pic if uploaded
+                if 'reg_profile_pic' in request.session:
+                    profile.profile_pic = request.session['reg_profile_pic']
+                profile.save()
+                login(request, user)
+                # Clear session
+                for key in ['reg_otp','reg_first_name','reg_last_name','reg_email','reg_password','reg_address','reg_mobile','reg_profile_pic']:
+                    if key in request.session:
+                        del request.session[key]
+                return JsonResponse({'success': True})
+            else:
+                return JsonResponse({'success': False, 'error': 'Invalid OTP'})
+        else:
+            # First form submission
+            form = StudentRegistrationForm(request.POST, request.FILES)
+            if form.is_valid():
+                otp = str(random.randint(1000, 9999))
+                request.session['reg_otp'] = otp
+                request.session['reg_first_name'] = form.cleaned_data['first_name']
+                request.session['reg_last_name'] = form.cleaned_data['last_name']
+                request.session['reg_email'] = form.cleaned_data['email']
+                request.session['reg_password'] = form.cleaned_data['password']
+                request.session['reg_address'] = form.cleaned_data['address']
+                request.session['reg_mobile'] = form.cleaned_data['mobile']
+                if 'profile_pic' in request.FILES:
+                    request.session['reg_profile_pic'] = request.FILES['profile_pic'].name
+                send_registration_otp(form.cleaned_data['email'], otp)
+                return JsonResponse({'otp_sent': True})
+            else:
+                return JsonResponse({'success': False, 'errors': form.errors})
+    return JsonResponse({'success': False, 'error': 'Invalid request'})
+
+@login_required
+def profile_view(request):
+    profile = request.user.studentprofile
+    return render(request, 'academy/profile.html', {'profile': profile})

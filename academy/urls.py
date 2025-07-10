@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from django.contrib.auth.views import LogoutView
+from django.contrib.auth import views as auth_views
 from django.shortcuts import redirect
 
 urlpatterns = [
@@ -16,8 +16,10 @@ urlpatterns = [
     path('signup/', views.signup_view, name='signup'),
     path('password-reset/', views.password_reset_view, name='password_reset'),
     path('password-reset/done/', views.password_reset_done_view, name='password_reset_done'),
-    path('logout/', LogoutView.as_view(next_page='home'), name='logout'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
     path('exams/<str:exam_slug>/', views.exam_detail, name='exam_detail'),
     path('academy/<str:exam>.html', lambda request, exam: redirect(f'/exams/{exam}/', permanent=True)),
     path('popup-contact/', views.popup_contact_view, name='popup_contact'),
+    path('ajax/register/', views.ajax_register_student, name='ajax_register_student'),
+    path('profile/', views.profile_view, name='profile'),
 ] 

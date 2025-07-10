@@ -1,0 +1,32 @@
+{% extends 'academy/base.html' %}
+{% load static %}
+{% block title %}Profile - Ashwamedh Academy{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-body text-center">
+          {% if profile.profile_pic %}
+            <img src="{{ profile.profile_pic.url }}" class="rounded-circle mb-3" style="width: 120px; height: 120px; object-fit: cover;">
+          {% else %}
+            <img src="{% static 'academy/images/logo1.png' %}" class="rounded-circle mb-3" style="width: 120px; height: 120px; object-fit: cover;">
+          {% endif %}
+          <h3 class="mb-0">{{ profile.user.first_name }} {{ profile.user.last_name }}</h3>
+          <p class="text-muted">{{ profile.user.email }}</p>
+          <hr>
+          <div class="row text-start">
+            <div class="col-md-6 mb-3">
+              <strong>Address:</strong><br>{{ profile.address }}
+            </div>
+            <div class="col-md-6 mb-3">
+              <strong>Mobile:</strong><br>{{ profile.mobile }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 
