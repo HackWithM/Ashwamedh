@@ -9,6 +9,18 @@
   border: 1.5px solid #ffe0c2;
   position: relative;
 }
+.modal-content {
+  border-radius: 44px !important;
+}
+.modal-header{
+  display: none;
+}
+.modal-content {
+  width: 400px !important;
+}
+.modal-body{
+  padding: 0 !important;
+} 
 .popup-form-title {
   color: #fd7e14;
   font-weight: 700;
@@ -60,6 +72,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 .popup-form-btn:hover, .popup-form-btn:focus {
   background: #ff943f;
@@ -73,22 +86,24 @@
 }
 .popup-spinner {
   display: inline-block;
-  width: 32px;
-  height: 32px;
+  width: 20px;       /* Smaller */
+  height: 20px;
   vertical-align: middle;
-  margin-left: 12px;
+  margin-left: 10px; /* space between text and spinner */
 }
+
 .popup-spinner:after {
   content: " ";
   display: block;
-  width: 28px;
-  height: 28px;
+  width: 16px;
+  height: 16px;
   margin: 2px;
   border-radius: 50%;
-  border: 4px solid #fd7e14;
-  border-color: #fd7e14 transparent #fd7e14 transparent;
-  animation: popup-dual-ring 1.2s linear infinite;
+  border: 2px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: popup-dual-ring 1s linear infinite;
 }
+
 @keyframes popup-dual-ring {
   0% { transform: rotate(0deg);}
   100% { transform: rotate(360deg);}
@@ -124,7 +139,7 @@
       <textarea class="form-control popup-form-input" id="popup_id_message" name="message" rows="4" required></textarea>
     </div>
     <button type="submit" class="btn popup-form-btn" id="popup-contact-submit">
-      Send OTP
+     Submit
       <!-- Spinner is shown/hidden by JS -->
       <span class="popup-spinner d-none" id="popup-contact-spinner" style="z-index: 1100;"></span>
     </button>
