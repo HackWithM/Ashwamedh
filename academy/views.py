@@ -262,7 +262,10 @@ def ajax_register_student(request):
                     first_name=request.session['reg_first_name'],
                     last_name=request.session['reg_last_name']
                 )
-                profile = user.studentprofile
+                try:
+                    profile = user.studentprofile
+                except StudentProfile.DoesNotExist:
+                    profile = StudentProfile.objects.create(user=user)
                 profile.address = request.session['reg_address']
                 profile.mobile = request.session['reg_mobile']
                 # Handle profile_pic if uploaded
@@ -299,5 +302,5 @@ def ajax_register_student(request):
 
 @login_required
 def profile_view(request):
-    profile = request.user.studentprofile
+    profile = getattr(request.user, 'studentprofile', None)
     return render(request, 'academy/profile.html', {'profile': profile})

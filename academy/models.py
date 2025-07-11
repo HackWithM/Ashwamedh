@@ -93,4 +93,6 @@ def create_student_profile(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=User)
 def save_student_profile(sender, instance, **kwargs):
-    instance.studentprofile.save()
+    profile = getattr(instance, 'studentprofile', None)
+    if profile:
+        profile.save()
